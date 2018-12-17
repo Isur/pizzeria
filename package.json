@@ -1,0 +1,19 @@
+{
+  "name": "pizzeria",
+  "version": "1.0.0",
+  "description": "Pizzeria",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Isur/pizzeria.git"
+  },
+  "author": "Isur&Grajek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Isur/pizzeria/issues"
+  },
+  "homepage": "https://github.com/Isur/pizzeria#readme"
+}
