@@ -5,11 +5,13 @@ const router = express.Router();
 router.post("/add", (req, res) => {
     const name = req.body.name;
     const quantity = req.body.quantity;
+    const price = req.body.price;
     Ingredient.countDocuments({ name: name }, (err, count) => {
         if (count <= 0){
             const ingredient = new Ingredient();
             ingredient.name = name;
             ingredient.quantity = quantity;
+            ingredient.price = price;
             ingredient.save()
                 .then(response => res.status(200).json({ success: true, data: response }))
                 .catch(error => res.status(500).json({ success: false, data: error }));
@@ -49,10 +51,12 @@ router.patch("/update", (req,res) => {
     const id = req.body.id;
     const name = req.body.name;
     const quantityChange = req.body.quantityChange;
+    const price = req.body.price;
     Ingredient.findOne({ _id: id })
         .then(ingredient => {
             ingredient.name = name || ingredient.name;
             ingredient.quantity += quantityChange || 0;
+            ingredient.price = price || ingredient.price;
             ingredient.save()
                 .then(response => res.status(200).json({ success: true, data: response }))
                 .catch(error => res.status(200).json({ success: false, data: error, message: "Not enough quantity" }));

@@ -8,8 +8,17 @@ const Pizza = new Schema({
         required: true,
     },
     ingredients: {
-        type: [ingredient],
+        type: [String],
         required: true,
+    },
+    description:{
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: false,
+        min: 0
     }
 });
 const pizza = mongoose.model("pizza", Pizza);

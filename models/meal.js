@@ -14,6 +14,11 @@ const Meal = new Schema({
     description: {
         type: String,
         required: true
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
     }
 });
 const meal = mongoose.model("meal", Meal);

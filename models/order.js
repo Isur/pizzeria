@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const pizza = require("./pizza").Pizza;
-const meal = require("./meal").Meal;
-
+const orderState = require("../config/enum").orderState;
 const Basket = new Schema({
     meals: {
-        type: [meal],
+        type: [String],
         required: false,
     },
     pizzas: {
@@ -19,12 +18,22 @@ const Order = new Schema({
         type: String,
         required: true,
     },
-    basket: {
-        type: [Basket],
-        required: true,
+    meals: {
+        type: [String],
+        required: false,
+    },
+    pizzas: {
+        type: [pizza],
+        required: false
+    },
+    orderState: {
+        type: String,
+        require: true,
+        default: orderState.PENDING,
     }
 
 });
 
 const order = mongoose.model("order", Order);
-module.exports = { order, Order };
+const basket = mongoose.model("basket", Basket);
+module.exports = { order, Order, basket };

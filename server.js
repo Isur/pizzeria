@@ -19,6 +19,20 @@ const ingredient = require("./routes/api/ingredient");
 app.use("/ingredient", ingredient);
 const meal = require("./routes/api/meal");
 app.use("/meal", meal);
+const drink = require("./routes/api/drink");
+app.use("/drink", drink);
+const pizza = require("./routes/api/pizza");
+app.use("/pizza", pizza);
+const order = require("./routes/api/order");
+app.use("/order", order);
+
+
+// if (process.env.NODE_ENV === "production"){
+//     app.use(express.static("client/build"));
+//     app.get("*", (req,res)=>{
+//         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//     });
+// }
 
 const port = process.env.PORT || 3333;
 app.listen(port, () => console.log(`Server started on port ${port}`));
