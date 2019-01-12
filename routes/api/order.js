@@ -4,6 +4,7 @@ const Order = require("../../models/order").order;
 const Basket = require("../../models/order").basket;
 const Meal = require("../../models/meal").meal;
 const Pizza = require("../../models/pizza").pizza;
+const Drink = require("../../models/drink").drink;
 const router = express.Router();
 
 const getMeal = (mealIds) => {
@@ -34,16 +35,29 @@ router.post("/add", (req, res) => {
     const pizzas = req.body.pizzas || [];
     const meals = req.body.meals || [];
     const contact  = req.body.contact;
+    const drinks = req.body.drinks || [];
     createPizza(pizzas).then(response => {
         const order= new Order();
         order.pizzas = response;
         order.meals = meals;
+        order.drinks = drinks;
         order.contact = contact;
         order.save().then(response => res.status(200).json({success:true, data: response }));
     });
 });
 // TODO: DELETE
+router.delete("/delete/:id", (req, res) => {
+    const id = req.params.id;
+    Order.findByIdAndDelete({ _id: id })
+        .then(response => res.status(200).json({ success: true, data: response }))
+        .catch(error => res.status(500).json({ success: false, data: error }));
+});
 // TODO: DELETE ALL
+router.delete("/delete", (req, res) => {
+    Order.deleteMany()
+        .then(response => res.status(200).json({ success: true, data: response }))
+        .catch(error => res.status(500).json({ success: false, data: error }));
+});
 // GET ALL
 router.get("/get", (req, res) => {
     Order.find()
@@ -54,9 +68,12 @@ router.get("/get", (req, res) => {
 // UPDATE
 router.patch("/update", (req,res) => {
     const id = req.body.id;
-    const orderState = req.body.orderState;
+    const {ACCEPTED, SENT, RECEIVED, PENDING} = orderState;
+    //const orderState = req.body.orderState;
     Order.findById(id).then(order => {
-        order.orderState = orderState;
+        if(order.orderState === PENDING) order.orderState = ACCEPTED;
+        else if(order.orderState === ACCEPTED) order.orderState = SENT;
+        else if(order.orderState === SENT) order.orderState = RECEIVED;
         order.save().then(saved => res.status(200).json({ success: true, data: saved }));
     });
 });

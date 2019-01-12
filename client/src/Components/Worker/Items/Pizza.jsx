@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Button, Form, Item, Header} from 'semantic-ui-react';
 import PizzaEditor from '../../Client/pizzaEditor';
 import axios from 'axios';
+import MyLoader from '../../Config/MyLoader';
 export default class Pizza extends Component {
     constructor(props){
         super(props);
@@ -21,7 +22,7 @@ export default class Pizza extends Component {
         axios({
             method: 'get',
             url: '/pizza/get',
-      
+
           }).then(response => this.setState({
             pizzas: response.data.data,
             loadingP: false
@@ -31,7 +32,7 @@ export default class Pizza extends Component {
         axios({
             method: 'get',
             url: '/ingredient/get',
-      
+
           }).then(response => this.setState({
             ings: response.data.data,
             loadingI: false
@@ -41,14 +42,14 @@ export default class Pizza extends Component {
         axios({
             method: 'delete',
             url: '/pizza/delete/'+id,
-      
+
           }).then(response => this.getPizzas()).catch(err => console.log(err));
       }
 
     render() {
         const {loadingP, loadingI, pizzas, ings} = this.state;
         if(loadingP || loadingI){
-            return "Loading";
+            return <MyLoader />
         }
         return (<>
             <Header>
@@ -59,7 +60,7 @@ export default class Pizza extends Component {
                 <Item.Group relaxed="very">
                     {pizzas.map(pizza => <OnePizza ings={ings} deletePizza={this.deletePizza} key={pizza._id} pizza={pizza}/>)}
                 </Item.Group>
-            </Segment> 
+            </Segment>
             </>
         )
     }
@@ -110,7 +111,7 @@ class AddPizza extends Component {
   inputHandler = (e,d) => {
       this.setState({
           [d.name]: d.value
-      }, () => 
+      }, () =>
       console.log(this.state)
       );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Segment, Button, Form, Item, Header} from 'semantic-ui-react';
 import axios from 'axios';
+import MyLoader from '../../Config/MyLoader';
 export default class Ingredient extends Component {
     constructor(props){
         super(props);
@@ -18,7 +19,7 @@ export default class Ingredient extends Component {
         axios({
             method: 'get',
             url: '/ingredient/get',
-      
+
           }).then(response => this.setState({
             ingredients: response.data.data,
             loading: false
@@ -28,14 +29,14 @@ export default class Ingredient extends Component {
         axios({
             method: 'delete',
             url: '/ingredient/delete/'+id,
-      
+
           }).then(response => this.getIngredients()).catch(err => console.log(err));
       }
 
     render() {
         const { loading, ingredients} = this.state;
         if(loading){
-            return "Loading";
+            return <MyLoader />
         }
         return (<>
             <Header>
@@ -46,7 +47,7 @@ export default class Ingredient extends Component {
                 <Item.Group>
                     {ingredients.map(ingredient => <OneIngredient deleteIngredient={this.deleteIngredient} key={ingredient._id} ingredient={ingredient}/>)}
                 </Item.Group>
-            </Segment> 
+            </Segment>
             </>
         )
     }
@@ -92,7 +93,7 @@ class AddIngredient extends Component {
   inputHandler = (e,d) => {
       this.setState({
           [d.name]: d.value
-      }, () => 
+      }, () =>
       console.log(this.state)
       );
   }

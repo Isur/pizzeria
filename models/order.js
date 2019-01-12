@@ -22,6 +22,10 @@ const Order = new Schema({
         type: [String],
         required: false,
     },
+    drinks:{
+        type: [String],
+        required: false
+    },
     pizzas: {
         type: [pizza],
         required: false

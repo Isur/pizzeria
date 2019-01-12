@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Segment, Button, Form, Item, Header} from 'semantic-ui-react';
 import axios from 'axios';
+import MyLoader from '../../Config/MyLoader';
 export default class Meal extends Component {
     constructor(props){
         super(props);
@@ -18,7 +19,7 @@ export default class Meal extends Component {
         axios({
             method: 'get',
             url: '/meal/get',
-      
+
           }).then(response => this.setState({
             meals: response.data.data,
             loading: false
@@ -28,14 +29,14 @@ export default class Meal extends Component {
         axios({
             method: 'delete',
             url: '/meal/delete/'+id,
-      
+
           }).then(response => this.getMeals()).catch(err => console.log(err));
       }
 
     render() {
         const {loading, meals} = this.state;
         if(loading){
-            return "Loading";
+            return <MyLoader />
         }
         return (<>
             <Header>
@@ -46,7 +47,7 @@ export default class Meal extends Component {
                 <Item.Group relaxed="very">
                     {meals.map(meal => <OneMeal deleteMeal={this.deleteMeal} key={meal._id} meal={meal}/>)}
                 </Item.Group>
-            </Segment> 
+            </Segment>
             </>
         )
     }
@@ -92,7 +93,7 @@ class AddMeal extends Component {
   inputHandler = (e,d) => {
       this.setState({
           [d.name]: d.value
-      }, () => 
+      }, () =>
       console.log(this.state)
       );
   }

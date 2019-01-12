@@ -12,20 +12,22 @@ import Worker from '../Worker/Worker';
 import Items from '../Worker/Items';
 import Orders from '../Worker/Orders';
 import Contact from '../Contact';
-import PizzaEditor from '../Client/pizzaEditor';
+import PizzaItem from '../Client/Items/Pizza';
+import OwnPizza from "../Client/OwnPizza";
 // ROUTER
 const Router = (props) => {
     return(
         <Switch>
             <Route exact path="/" component={Homepage}/>
             <Route exact path="/home" component={Homepage} />
-            <Route exact path="/pizza" component={Pizza} />
-            <Route exact path="/meal" component={Meal} />
-            <Route exact path="/basket" component={Basket} />
-            <Route exact path="/drink" component={Drink} />
+            <Route exact path="/pizza" render={() => <Pizza addPizza={props.addPizza}/>} />
+            <Route exact path="/pizza/:id" render={(props) => <PizzaItem {...props} addPizza={props.addPizza}/>} />
+            <Route exact path="/meal" render={()=><Meal addMeal={props.addMeal}/>} />
+            <Route exact path="/basket" render={()=> <Basket order={props.order} removeDrink={props.removeDrink} removePizza={props.removePizza} removeMeal={props.removeMeal} basket={props.basket} setContact={props.setContact}/>} />
+            <Route exact path="/drink" render={()=><Drink addDrink={props.addDrink}/>} />
             <Route exact path="/worker" component={Worker} />
             <Route exact path="/contact" component={Contact} />
-            <Route exact path="/createpizza" component={PizzaEditor} />
+            <Route exact path="/createpizza" render={() => <OwnPizza addPizza={props.addPizza}/>} />
             <Route exact path="/worker/items" component={Items} />
             <Route exact path="/worker/orders" component={Orders} />
             <Route component={NotFound} />

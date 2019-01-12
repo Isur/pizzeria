@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { Card, Segment } from 'semantic-ui-react';
+import { Card, Segment, Button } from 'semantic-ui-react';
 import drinkImg from '../../images/drink.jpg';
 import axios from 'axios';
+import MyLoader from '../Config/MyLoader';
 
 const CardDrink = (props) => {
-  const { image, name, description, price } = props;
+  const { image, name, description, price, id } = props;
   return(
-    <Card image={drinkImg} 
+    <Card image={drinkImg}
           header={name}
           description={description}
-          extra={price + " PLN"} />
+          extra={<>{price} PLN <Button onClick={(e)=>{e.preventDefault();props.addDrink({id, name, description, price})}} icon="shopping cart"/></>} />
   )
 }
 
@@ -32,13 +33,13 @@ export default class Drink extends Component {
   }
   render() {
     if(this.state.loading === true){
-      return "LOADING";
+      return <MyLoader />
     }
     return (
       <Segment>
 
         <Card.Group centered>
-          {this.state.drinks.map(drink => <CardDrink name={drink.name} description={drink.description} price={drink.price} />)}
+          {this.state.drinks.map(drink => <CardDrink key={drink._id} addDrink={this.props.addDrink} id={drink._id} name={drink.name} description={drink.description} price={drink.price} />)}
         </Card.Group>
       </Segment>
     )
