@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database connection
-const db = `${keys.dbURL}/${keys.dbName}`;
+// const db = `${keys.dbURL}/${keys.dbName}`;
+const db = keys.dbOnline;
 mongoose.connect(db, { useNewUrlParser: true })
     .then(() => console.log("Database connected", db))
     .catch((err) => console.log(err));

@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "nodemon server.js --signal SIGTERM --delay 1500"
+    "run": "nodemon server.js --signal SIGTERM --delay 1500",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    }
   },
   "repository": {
     "type": "git",
