@@ -127,7 +127,7 @@ class AddPizza extends Component {
     console.log(ingredients);
       axios({
         method: "post",
-        url: "/pizza/add",
+        url: "/api/pizza/add",
         data: {
             name: name,
             ingredients: ingredients,

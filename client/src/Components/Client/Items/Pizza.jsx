@@ -43,11 +43,11 @@ export default class Pizza extends Component {
           return <MyLoader />
       }
       console.log({"pizza": this.state.pizza})
-      console.log();
+      console.log({props: this.props});
     return (
       <div>
         <PizzaEditor setIngredients={this.setIngredients} currentPizza={this.state.pizza}/>
-        <Button content="Dodaj do koszyka" />
+        <Button content="Dodaj do koszyka" disabled={this.state.ingredients.length < 1} onClick={() => this.props.addPizza(this.state.pizza)} />
         </div>
     )
   }

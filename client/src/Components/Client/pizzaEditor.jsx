@@ -93,7 +93,7 @@ export default class pizzaEditor extends Component {
 
     const i = this.state.ingredients.map(ing => {
         if(!this.comparer(ing._id)){
-            return <Dropdown.Item key={ing._id} text={ing.name} description={ing.quantity} onClick={() => this.addIngredient(ing._id)}/>
+            return <Dropdown.Item key={ing._id} text={ing.name} onClick={() => this.addIngredient(ing._id)}/>
         };
     });
     return (

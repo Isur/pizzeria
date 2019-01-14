@@ -30,7 +30,7 @@ class PizzaIngredients extends Component {
         if(ids.length > 0){
             axios({
                 method: "get",
-                url: "/ingredient/get/"+ids[0]
+                url: "/api/ingredient/get/"+ids[0]
             }).then(resp => {
                 this.setState({
                     pizzas:[...this.state.pizzas, resp.data.data],
@@ -52,7 +52,7 @@ class PizzaIngredients extends Component {
         <>
         <Button onClick={(e)=>this.pizzaDetails(e, this.props.pizza.ingredients)}>{this.props.pizza.name}</Button>
       <Message hidden={!this.state.open}>
-        {this.state.pizzas.map(i => <p>{i.name}</p>)}
+        {this.state.pizzas.map(i => <p className="pizzaIng"> {i.name}</p>)}
       </Message>
       </>
     )
@@ -100,7 +100,7 @@ class OrderRow extends Component{
         if(ids.length > 0){
             axios({
                 method: "get",
-                url: "/meal/get/"+ids[0]
+                url: "/api/meal/get/"+ids[0]
             }).then(resp => {
                 this.setState({
                     meals: [...this.state.meals, resp.data.data]
@@ -118,7 +118,7 @@ class OrderRow extends Component{
         if(ids.length > 0){
             axios({
                 method: "get",
-                url: "/drink/get/"+ids[0]
+                url: "/api/drink/get/"+ids[0]
             }).then(resp => {
                 this.setState({
                     drinks: [...this.state.drinks, resp.data.data]
@@ -142,7 +142,7 @@ class OrderRow extends Component{
 accept(){
     axios({
         method: "patch",
-        url: "/order/update",
+        url: "/api/order/update",
         data:{
             id: this.props.order._id
         }
@@ -151,13 +151,13 @@ accept(){
 reject(){
     axios({
         method: "delete",
-        url: "/order/delete/"+this.props.order._id,
+        url: "/api/order/delete/"+this.props.order._id,
     }).then(res => this.props.refresh());
 }
 send(){
     axios({
         method: "patch",
-        url: "/order/update",
+        url: "/api/order/update",
         data:{
             id: this.props.order._id
         }
@@ -227,10 +227,12 @@ export default class Orders extends Component {
         this.getOrders = this.getOrders.bind(this);
     }
     componentDidMount(){
-        this.getOrders();
+        setInterval(() => {
+            this.getOrders();
+          }, 5000);
     }
     getOrders(){
-        this.setState({loading: true}, ()=>{
+        this.setState({loading: false}, ()=>{
 
             axios({
                 method: 'get',
@@ -254,7 +256,7 @@ export default class Orders extends Component {
       console.log(orders);
 
     return (
-      <Segment placeholder size="massive">
+      <Segment placeholder size="massive" className="Orders">
         <Grid columns={4} stackable textAlign="center">
             {orders.map(o => <OrderRow order={o} refresh={this.getOrders}/>)}
 

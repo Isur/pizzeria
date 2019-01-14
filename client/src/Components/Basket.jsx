@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Segment, Input, Header } from 'semantic-ui-react';
+import { Card, Button, Segment, Input, Header, Form, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from './Config/MyLoader';
 
@@ -23,6 +23,8 @@ export default class Basket extends Component {
             ingredients: []
         }
         console.log(props);
+
+        this.order = this.order.bind(this)
     }
     componentDidMount(){
         axios({
@@ -35,7 +37,11 @@ export default class Basket extends Component {
           }));
     }
     order(){
-       this.props.order();
+        const { pizzas, meals, drinks } = this.props.basket;
+        if(pizzas.length + meals.length + drinks.length < 1){
+            return
+        }
+        this.props.order();
     }
   render() {
       const { pizzas, meals, drinks } = this.props.basket;
@@ -50,20 +56,19 @@ export default class Basket extends Component {
     return (
         <Segment>
 
-        <Header>
-              Cena: {price} PLN
-        </Header>
-        <Header>
-
-        <Input label="Telefon"
-               type="tel"
-               onChange={(e) => this.props.setContact(e.target.value) }/>
-        </Header>
-        <Header >
-
-         <Button content="Zamów" onClick={() => this.order()}/>
-        </Header>
-
+        <Form onSubmit={() => this.order()}>
+            <Form.Group>
+                <Header>
+                    Cena: {price} PLN
+                </Header>
+            </Form.Group>
+            <Form.Group>
+                <Form.Input required pattern="[0-9]{9}" type="tel" label="Telefon" placeholder="123123123" onChange={(e) => this.props.setContact(e.target.value) } />
+            </Form.Group>
+            <Form.Group>
+                <Button content="Zamów" disabled={pizzas.length + meals.length + drinks.length < 1} />
+            </Form.Group>
+        </Form>
         <Card.Group>
             {pizzas.map(p => <Item key={p.itemID} removeItem={removePizza} ingredients={p.ingredients} name={p.name} id={p.id} ings={ingredients} price={p.price} description={p.description} itemID={p.itemID} />)}
             {meals.map(m => <Item key={m.id} removeItem={removeMeal} name={m.name} id={m.id} description={m.description} price={m.price} itemID={m.itemID}/>)}

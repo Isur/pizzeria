@@ -23,7 +23,7 @@ const Router = (props) => {
             <Route exact path="/" component={Homepage}/>
             <Route exact path="/home" component={Homepage} />
             <Route exact path="/pizza" render={() => <Pizza addPizza={props.addPizza}/>} />
-            <Route exact path="/pizza/:id" render={(props) => <PizzaItem {...props} addPizza={props.addPizza}/>} />
+            <Route exact path="/pizza/:id" render={(x) => <PizzaItem {...x} addPizza={props.addPizza}/>} />
             <Route exact path="/meal" render={()=><Meal addMeal={props.addMeal}/>} />
             <Route exact path="/basket" render={()=> <Basket order={props.order} removeDrink={props.removeDrink} removePizza={props.removePizza} removeMeal={props.removeMeal} basket={props.basket} setContact={props.setContact}/>} />
             <Route exact path="/drink" render={()=><Drink addDrink={props.addDrink}/>} />

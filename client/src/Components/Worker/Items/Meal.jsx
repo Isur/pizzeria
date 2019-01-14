@@ -62,9 +62,6 @@ const OneMeal = (props) => {
                 <Item.Header>
                     {name}
                 </Item.Header>
-                <Item.Meta>
-                    Liczba: {quantity}
-                </Item.Meta>
                 <Item.Description>
                     {description}
                 </Item.Description>
@@ -102,10 +99,10 @@ class AddMeal extends Component {
     const { name, price, quantity, desc } = this.state;
       axios({
         method: "post",
-        url: "/meal/add",
+        url: "/api/meal/add",
         data: {
             name: name,
-            quantity: quantity,
+            quantity: 10,
             price: price,
             description: desc
         }
@@ -139,13 +136,13 @@ class AddMeal extends Component {
                                 type="number"
                                 onChange={this.inputHandler}
                                 value={price} />
-                    <Form.Input required
+                    {/* <Form.Input required
                                 name="quantity"
                                 min="1"
                                 label="Liczba"
                                 type="number"
                                 onChange={this.inputHandler}
-                                value={quantity}/>
+                                value={quantity}/> */}
                     <Form.TextArea required
                                    label="Opis"
                                    name="desc"

@@ -3,6 +3,7 @@ import Router from './Components/Config/Router'
 import Header from './Components/Header';
 import './styles/index.scss';
 import axios from 'axios';
+import RespondModal from './Components/Global/RespondModal';
 
 class App extends React.Component {
     constructor(props){
@@ -15,6 +16,9 @@ class App extends React.Component {
                 contact: "",
             },
             logged: false,
+            modal: false,
+            modalMessage: "",
+            modalHeader: ""
         }
         this.addPizza = this.addPizza.bind(this);
         this.addMeal = this.addMeal.bind(this);
@@ -24,13 +28,19 @@ class App extends React.Component {
         this.removeDrink = this.removeDrink.bind(this);
         this.setContact = this.setContact.bind(this);
         this.order = this.order.bind(this);
-        this.login = this.login.bind(this)
+        this.login = this.login.bind(this);
+        this.closeModal = this.closeModal.bind(this)
     }
     addPizza(pizza){
         const pizzas = this.state.basket.pizzas;
         pizza.itemID = pizzas.length +1;
         pizzas.push(pizza);
         console.log(this.state.basket);
+        this.setState({
+            modal: true,
+            modalHeader: "Dodano pizza",
+            modalMessage: `Dodano do koszyka: ${pizza.name}`
+        });
     }
     removePizza(pizza){
         this.setState((state, props) => {
@@ -45,6 +55,11 @@ class App extends React.Component {
         const meals = this.state.basket.meals;
         meal.itemID = meals.length + 1;
         meals.push(meal);
+        this.setState({
+            modal: true,
+            modalHeader: "Dodano posiłek",
+            modalMessage: `Dodano do koszyka: ${meal.name}`
+        });
     }
     removeMeal(meal){
         this.setState((state, props) => {
@@ -59,6 +74,11 @@ class App extends React.Component {
         const drinks = this.state.basket.drinks;
         drink.itemID = drinks.length + 1;
         drinks.push(drink);
+        this.setState({
+            modal: true,
+            modalHeader: "Dodano napój",
+            modalMessage: `Dodano do koszyka: ${drink.name}`
+        });
     }
     removeDrink(drink){
         this.setState((state, props) => {
@@ -83,12 +103,24 @@ class App extends React.Component {
             meals: b.meals.map(x => x.id),
             drinks: b.drinks.map(x => x.id)
         };
-        console.log(order);
+        console.log({order});
         axios({
             method: 'post',
             url: '/api/order/add',
             data: order
-        }).then(resp => console.log(resp)).catch(err => console.log(err));
+        }).then(resp => {
+            this.setState({
+                basket: {
+                    pizzas: [],
+                    meals: [],
+                    drinks: [],
+                    contact: "",
+                },
+                modal: true,
+                modalHeader: "Koszyk",
+                modalMessage: "Twoje zamówenie zostało złożone"
+            })
+        }).catch(err => console.log(err));
     }
     login(login, password){
         console.log(login, password);
@@ -98,11 +130,17 @@ class App extends React.Component {
             }, () => console.log("logged"))
         }
     }
+    closeModal(){
+        this.setState({
+            modal: false
+        })
+    }
   render() {
       console.log(this.state.logged);
     return (
       <div className="App">
         <Header />
+        <RespondModal open={this.state.modal} close={this.closeModal} header={this.state.modalHeader} message={this.state.modalMessage}/>
         <Router addPizza={this.addPizza}
                 addMeal={this.addMeal}
                 addDrink={this.addDrink}

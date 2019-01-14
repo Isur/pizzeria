@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import responsive from './Responsive';
+import responsive from './Global/Responsive';
 
 const options = [
     { key: 1, text: 'Gotowa Pizza', value: '/pizza' },

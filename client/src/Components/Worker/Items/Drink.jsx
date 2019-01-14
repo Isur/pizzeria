@@ -62,9 +62,9 @@ const OneDrink = (props) => {
                 <Item.Header>
                     {name}
                 </Item.Header>
-                <Item.Meta>
+                {/* <Item.Meta>
                     Liczba: {quantity}
-                </Item.Meta>
+                </Item.Meta> */}
                 <Item.Description>
                     {description}
                 </Item.Description>
@@ -102,10 +102,10 @@ class AddDrink extends Component {
     const { name, price, quantity, desc } = this.state;
       axios({
         method: "post",
-        url: "/drink/add",
+        url: "/api/drink/add",
         data: {
             name: name,
-            quantity: quantity,
+            quantity: 10,
             price: price,
             description: desc
         }
@@ -139,13 +139,13 @@ class AddDrink extends Component {
                                 type="number"
                                 onChange={this.inputHandler}
                                 value={price} />
-                    <Form.Input required
+                    {/* <Form.Input required
                                 name="quantity"
                                 min="1"
                                 label="Liczba"
                                 type="number"
                                 onChange={this.inputHandler}
-                                value={quantity}/>
+                                value={quantity}/> */}
                     <Form.TextArea required
                                    label="Opis"
                                    name="desc"

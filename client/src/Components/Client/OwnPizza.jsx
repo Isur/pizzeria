@@ -33,7 +33,7 @@ export default class OwnPizza extends Component {
     return (
       <div>
         <PizzaEditor setIngredients={this.setIngredients} />
-        <Button content="Dodaj do koszyka" onClick={() => this.props.addPizza(this.state.pizza)} />
+        <Button content="Dodaj do koszyka" onClick={() => this.props.addPizza(this.state.pizza)} disabled={this.state.ingredients < 1} />
         </div>
     )
   }
