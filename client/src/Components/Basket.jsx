@@ -20,7 +20,12 @@ export default class Basket extends Component {
         super(props);
         this.state = {
             loadingI: true,
-            ingredients: []
+            ingredients: [],
+            lastName: "",
+            street: "",
+            nr: "",
+            town: "",
+            contact: ""
         }
         console.log(props);
 
@@ -41,12 +46,19 @@ export default class Basket extends Component {
         if(pizzas.length + meals.length + drinks.length < 1){
             return
         }
+        this.setState({
+            lastName: "",
+            street: "",
+            nr: "",
+            town: "",
+            contact: ""
+        })
         this.props.order();
     }
   render() {
       const { pizzas, meals, drinks } = this.props.basket;
       const { removePizza, removeMeal, removeDrink } = this.props;
-      const {loadingI, ingredients} = this.state;
+      const {loadingI, ingredients, lastName, street, nr, town, contact } = this.state;
       let price = 0;
       [...pizzas,...meals,...drinks].map(item => price += item.price);
       if(loadingI){
@@ -54,7 +66,7 @@ export default class Basket extends Component {
       }
       console.log(this.props.basket);
     return (
-        <Segment>
+        <Segment basic>
 
         <Form onSubmit={() => this.order()}>
             <Form.Group>
@@ -63,9 +75,11 @@ export default class Basket extends Component {
                 </Header>
             </Form.Group>
             <Form.Group>
-                <Form.Input required pattern="[0-9]{9}" type="tel" label="Telefon" placeholder="123123123" onChange={(e) => this.props.setContact(e.target.value) } />
-            </Form.Group>
-            <Form.Group>
+                <Form.Input required value={contact} pattern="[0-9]{9}" type="tel" label="Telefon" placeholder="123123123" onChange={(e) => {this.props.setContact(e.target.value); this.setState({contact:e.target.value})} } />
+                    <Form.Input required value={lastName} label="Nazwisko" onChange={(e) => {this.props.setLastName(e.target.value); this.setState({lastName:e.target.value})}}/>
+                    <Form.Input required value={town} label="Miasto" onChange={(e) => {this.props.setTown(e.target.value);this.setState({town:e.target.value})}} />
+                    <Form.Input required value={street} label="Ulica" onChange={(e) => {this.props.setStreet(e.target.value);this.setState({street: e.target.value})}} />
+                    <Form.Input required value={nr} patter="[0-9]{3}" label="Nr" onChange={(e) => {this.props.setNr(e.target.value); this.setState({nr:e.target.value})}} />
                 <Button content="Zamów" disabled={pizzas.length + meals.length + drinks.length < 1} />
             </Form.Group>
         </Form>

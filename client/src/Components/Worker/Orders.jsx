@@ -133,10 +133,17 @@ class OrderRow extends Component{
     }
 
     open(){
-        const order = this.props.order;
-        this.setState({hiddenMessage: !this.state.hiddenMessage})
-        this.getMeals(order.meals);
-        this.getDrinks(order.drinks);
+        this.setState({
+            drinks: [],
+            meals: [],
+            pizzas: [],
+        }, () => {
+
+            const order = this.props.order;
+            this.setState({hiddenMessage: !this.state.hiddenMessage})
+            this.getMeals(order.meals);
+            this.getDrinks(order.drinks);
+        });
     }
 
 accept(){

@@ -96,6 +96,9 @@ export default class pizzaEditor extends Component {
             return <Dropdown.Item key={ing._id} text={ing.name} onClick={() => this.addIngredient(ing._id)}/>
         };
     });
+    let pr = 0;
+    console.log(this.state.listed);
+    this.state.listed.map(i => pr += parseFloat(i.price) );
     return (
       <div>
         <Dropdown text="Wybierz składnik!" onChange={this.addIngredient} button>
@@ -103,6 +106,7 @@ export default class pizzaEditor extends Component {
                 {i}
             </Dropdown.Menu>
         </Dropdown>
+        Cena: {pr} <br />
        {this.state.listed.map(ing => <IngredientPanel key={ing._id} quantity={ing.quantity} plus={this.plus} minus={this.minus} name={ing.name} id={ing._id} remove={this.removeIngredient}/>)}
       </div>
     )

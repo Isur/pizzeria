@@ -14,6 +14,10 @@ class App extends React.Component {
                 meals: [],
                 drinks: [],
                 contact: "",
+                lastName: "",
+                street: "",
+                town: "",
+                nr: ""
             },
             logged: false,
             modal: false,
@@ -29,7 +33,12 @@ class App extends React.Component {
         this.setContact = this.setContact.bind(this);
         this.order = this.order.bind(this);
         this.login = this.login.bind(this);
-        this.closeModal = this.closeModal.bind(this)
+        this.closeModal = this.closeModal.bind(this);
+        this.setLastName = this.setLastName.bind(this);
+        this.setStreet = this.setStreet.bind(this);
+        this.setTown = this.setTown.bind(this);
+        this.setNr = this.setNr.bind(this);
+
     }
     addPizza(pizza){
         const pizzas = this.state.basket.pizzas;
@@ -95,10 +104,38 @@ class App extends React.Component {
 
         console.log(this.state.basket);
     }
+    setLastName(lastName){
+        const basket = this.state.basket;
+        basket.lastName = lastName;
+
+        console.log(this.state.basket);
+    }
+    setTown(town){
+        const basket = this.state.basket;
+        basket.town = town;
+
+        console.log(this.state.basket);
+    }
+    setStreet(street){
+        const basket = this.state.basket;
+        basket.street = street;
+
+        console.log(this.state.basket);
+    }
+    setNr(nr){
+        const basket = this.state.basket;
+        basket.nr = nr;
+
+        console.log(this.state.basket);
+    }
     order(){
         const b = this.state.basket;
         const order = {
             contact: b.contact,
+            town: b.town,
+            street: b.street,
+            nr: b.nr,
+            lastName: b.lastName,
             pizzas: b.pizzas,
             meals: b.meals.map(x => x.id),
             drinks: b.drinks.map(x => x.id)
@@ -148,6 +185,10 @@ class App extends React.Component {
                 removeMeal={this.removeMeal}
                 removeDrink={this.removeDrink}
                 setContact={this.setContact}
+                setLastName={this.setLastName}
+                setNr={this.setNr}
+                setStreet={this.setStreet}
+                setTown={this.setTown}
                 order={this.order}
                 login={this.login}
                 logged={this.state.logged}
