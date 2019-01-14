@@ -138,11 +138,13 @@ class OrderRow extends Component{
             meals: [],
             pizzas: [],
         }, () => {
+            if(this.state.hiddenMessage === true){
 
-            const order = this.props.order;
-            this.setState({hiddenMessage: !this.state.hiddenMessage})
-            this.getMeals(order.meals);
-            this.getDrinks(order.drinks);
+                const order = this.props.order;
+                this.getMeals(order.meals);
+                this.getDrinks(order.drinks);
+            }
+            this.setState({hiddenMessage: !this.state.hiddenMessage});
         });
     }
 
