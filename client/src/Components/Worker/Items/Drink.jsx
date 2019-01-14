@@ -18,7 +18,7 @@ export default class Drink extends Component {
       getDrinks = () => {
         axios({
             method: 'get',
-            url: '/drink/get',
+            url: '/api/drink/get',
 
           }).then(response => this.setState({
             drinks: response.data.data,
@@ -28,7 +28,7 @@ export default class Drink extends Component {
       deleteDrink = (id) => {
         axios({
             method: 'delete',
-            url: '/drink/delete/'+id,
+            url: '/api/drink/delete/'+id,
 
           }).then(response => this.getDrinks()).catch(err => console.log(err));
       }

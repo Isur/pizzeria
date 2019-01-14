@@ -234,7 +234,7 @@ export default class Orders extends Component {
 
             axios({
                 method: 'get',
-                url: '/order/get'
+                url: '/api/order/get'
             }).then(resp => {
                 this.setState({
                     orders: resp.data.data,

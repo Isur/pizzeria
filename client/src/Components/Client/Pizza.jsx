@@ -30,7 +30,7 @@ export default class Pizza extends Component {
   componentDidMount = () => {
     axios({
       method: 'get',
-      url: '/pizza/get',
+      url: '/api/pizza/get',
 
     }).then(response => this.setState({
       pizzas: response.data.data,
@@ -38,7 +38,7 @@ export default class Pizza extends Component {
     }));
     axios({
       method: 'get',
-      url: '/ingredient/get',
+      url: '/api/ingredient/get',
 
     }).then(response => this.setState({
       ingredients: response.data.data,

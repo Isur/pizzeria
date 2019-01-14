@@ -18,7 +18,7 @@ export default class Pizza extends Component {
     componentDidMount(){
         axios({
             method: 'get',
-            url: '/pizza/get/'+this.props.match.params.id,
+            url: '/api/pizza/get/'+this.props.match.params.id,
 
           }).then(response => this.setState({
             pizza: response.data.data,

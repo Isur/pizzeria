@@ -18,7 +18,7 @@ export default class Meal extends Component {
       getMeals = () => {
         axios({
             method: 'get',
-            url: '/meal/get',
+            url: '/api/meal/get',
 
           }).then(response => this.setState({
             meals: response.data.data,
@@ -28,7 +28,7 @@ export default class Meal extends Component {
       deleteMeal = (id) => {
         axios({
             method: 'delete',
-            url: '/meal/delete/'+id,
+            url: '/api/meal/delete/'+id,
 
           }).then(response => this.getMeals()).catch(err => console.log(err));
       }

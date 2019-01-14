@@ -86,7 +86,7 @@ class App extends React.Component {
         console.log(order);
         axios({
             method: 'post',
-            url: '/order/add',
+            url: '/api/order/add',
             data: order
         }).then(resp => console.log(resp)).catch(err => console.log(err));
     }

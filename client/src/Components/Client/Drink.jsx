@@ -24,7 +24,7 @@ export default class Drink extends Component {
   componentDidMount = () => {
     axios({
       method: 'get',
-      url: '/drink/get',
+      url: '/api/drink/get',
 
     }).then(response => this.setState({
       drinks: response.data.data,

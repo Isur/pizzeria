@@ -17,15 +17,15 @@ mongoose.connect(db, { useNewUrlParser: true })
     .catch((err) => console.log(err));
 // Routes
 const ingredient = require("./routes/api/ingredient");
-app.use("/ingredient", ingredient);
+app.use("/api/ingredient", ingredient);
 const meal = require("./routes/api/meal");
-app.use("/meal", meal);
+app.use("/api/meal", meal);
 const drink = require("./routes/api/drink");
-app.use("/drink", drink);
+app.use("/api/drink", drink);
 const pizza = require("./routes/api/pizza");
-app.use("/pizza", pizza);
+app.use("/api/pizza", pizza);
 const order = require("./routes/api/order");
-app.use("/order", order);
+app.use("/api/order", order);
 
 
 if (process.env.NODE_ENV === "production"){

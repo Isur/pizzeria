@@ -34,7 +34,7 @@ export default class pizzaEditor extends Component {
       componentDidMount = () => {
         axios({
           method: 'get',
-          url: '/ingredient/get',
+          url: '/api/ingredient/get',
 
         }).then(response => {
             this.setState({

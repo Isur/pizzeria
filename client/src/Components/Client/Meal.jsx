@@ -24,7 +24,7 @@ export default class Meal extends Component {
   componentDidMount = () => {
     axios({
       method: 'get',
-      url: '/meal/get',
+      url: '/api/meal/get',
 
     }).then(response => this.setState({
       meals: response.data.data,

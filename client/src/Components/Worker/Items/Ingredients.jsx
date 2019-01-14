@@ -18,7 +18,7 @@ export default class Ingredient extends Component {
       getIngredients = () => {
         axios({
             method: 'get',
-            url: '/ingredient/get',
+            url: '/api/ingredient/get',
 
           }).then(response => this.setState({
             ingredients: response.data.data,
@@ -28,7 +28,7 @@ export default class Ingredient extends Component {
       deleteIngredient = (id) => {
         axios({
             method: 'delete',
-            url: '/ingredient/delete/'+id,
+            url: '/api/ingredient/delete/'+id,
 
           }).then(response => this.getIngredients()).catch(err => console.log(err));
       }

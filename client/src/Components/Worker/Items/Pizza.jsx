@@ -21,7 +21,7 @@ export default class Pizza extends Component {
       getPizzas = () => {
         axios({
             method: 'get',
-            url: '/pizza/get',
+            url: '/api/pizza/get',
 
           }).then(response => this.setState({
             pizzas: response.data.data,
@@ -31,7 +31,7 @@ export default class Pizza extends Component {
       getIngredients(){
         axios({
             method: 'get',
-            url: '/ingredient/get',
+            url: '/api/ingredient/get',
 
           }).then(response => this.setState({
             ings: response.data.data,
@@ -41,7 +41,7 @@ export default class Pizza extends Component {
       deletePizza = (id) => {
         axios({
             method: 'delete',
-            url: '/pizza/delete/'+id,
+            url: '/api/pizza/delete/'+id,
 
           }).then(response => this.getPizzas()).catch(err => console.log(err));
       }
