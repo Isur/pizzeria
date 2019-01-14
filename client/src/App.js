@@ -12,8 +12,9 @@ class App extends React.Component {
                 pizzas: [],
                 meals: [],
                 drinks: [],
-                contact: ""
-            }
+                contact: "",
+            },
+            logged: false,
         }
         this.addPizza = this.addPizza.bind(this);
         this.addMeal = this.addMeal.bind(this);
@@ -23,6 +24,7 @@ class App extends React.Component {
         this.removeDrink = this.removeDrink.bind(this);
         this.setContact = this.setContact.bind(this);
         this.order = this.order.bind(this);
+        this.login = this.login.bind(this)
     }
     addPizza(pizza){
         const pizzas = this.state.basket.pizzas;
@@ -88,7 +90,16 @@ class App extends React.Component {
             data: order
         }).then(resp => console.log(resp)).catch(err => console.log(err));
     }
+    login(login, password){
+        console.log(login, password);
+        if(login === "worker" && password === "worker"){
+            this.setState({
+                logged: true,
+            }, () => console.log("logged"))
+        }
+    }
   render() {
+      console.log(this.state.logged);
     return (
       <div className="App">
         <Header />
@@ -100,6 +111,8 @@ class App extends React.Component {
                 removeDrink={this.removeDrink}
                 setContact={this.setContact}
                 order={this.order}
+                login={this.login}
+                logged={this.state.logged}
                 basket={this.state.basket} />
       </div>
     );

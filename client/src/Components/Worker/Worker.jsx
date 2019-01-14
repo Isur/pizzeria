@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import { Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default class Worker extends Component {
-  render() {
+    componentDidMount(){
+        console.log(this.props);
+        console.log("test")
+    }
+    render() {
+        if(this.props.logged === false){
+            return <Redirect to="/worker/login" />
+        }
     return (
         <Segment placeholder size="massive">
     <Grid container columns={1} stackable textAlign='center' verticalAlign="middle">

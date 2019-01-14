@@ -6,9 +6,9 @@ import MyLoader from '../Config/MyLoader';
 const IngredientPanel = (props) => {
     return(
         <Segment>
-            IMAGE - {props.name}
+            {props.name}
             {/* <Button icon="plus" onClick={(e) =>{ e.preventDefault(); props.plus(props.id);}} /> */}
-            {props.quantity}
+            {/* {props.quantity} */}
             {/* <Button icon="minus" onClick={(e) =>{ e.preventDefault(); props.minus(props.id);}} /> */}
             <Button icon="trash" onClick={(e) =>{ e.preventDefault(); props.remove(props.id);}} />
         </Segment>
@@ -98,7 +98,7 @@ export default class pizzaEditor extends Component {
     });
     return (
       <div>
-        <Dropdown text="Wybierz składnik!" onChange={this.addIngredient} simple>
+        <Dropdown text="Wybierz składnik!" onChange={this.addIngredient} button>
             <Dropdown.Menu>
                 {i}
             </Dropdown.Menu>

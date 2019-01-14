@@ -4,6 +4,7 @@ import MyLoader from '../Config/MyLoader';
 import {orderState} from '../../Components/Config/enum';
 import { Segment, Grid, Header, Divider, Button, Message } from 'semantic-ui-react';
 import pizzaEditor from '../Client/pizzaEditor';
+import { Redirect } from 'react-router-dom';
 
 
 class PizzaIngredients extends Component {
@@ -44,6 +45,9 @@ class PizzaIngredients extends Component {
         }
     }
   render() {
+      if(this.props.logged === false){
+        return <Redirect to="/worker/login" />;
+      }
     return (
         <>
         <Button onClick={(e)=>this.pizzaDetails(e, this.props.pizza.ingredients)}>{this.props.pizza.name}</Button>
@@ -161,6 +165,9 @@ send(){
 }
 
    render(){
+    if(this.props.logged === false){
+        return <Redirect to="/worker/login" />
+    }
     const order = this.props.order;
     const {hiddenMessage, drinks, meals, dl, ml, pl} = this.state;
     let buttons;
@@ -181,6 +188,7 @@ send(){
         <Grid.Row onClick={this.open}>
             <Grid.Column>
                 {buttons}
+                {(order.orderState === orderState.PENDING || order.orderState === orderState.ACCEPTED) && order.contact}
             </Grid.Column>
             <Grid.Column>
                 Dania: {ml}
@@ -236,6 +244,9 @@ export default class Orders extends Component {
         });
     }
   render() {
+      if(this.props.logged === false){
+          return <Redirect to="/worker/login" />
+      }
       if(this.state.loading){
           return <MyLoader />
       }

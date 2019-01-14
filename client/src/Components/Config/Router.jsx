@@ -14,8 +14,10 @@ import Orders from '../Worker/Orders';
 import Contact from '../Contact';
 import PizzaItem from '../Client/Items/Pizza';
 import OwnPizza from "../Client/OwnPizza";
+import Login from "../Worker/Login";
 // ROUTER
 const Router = (props) => {
+    console.log(props)
     return(
         <Switch>
             <Route exact path="/" component={Homepage}/>
@@ -25,11 +27,12 @@ const Router = (props) => {
             <Route exact path="/meal" render={()=><Meal addMeal={props.addMeal}/>} />
             <Route exact path="/basket" render={()=> <Basket order={props.order} removeDrink={props.removeDrink} removePizza={props.removePizza} removeMeal={props.removeMeal} basket={props.basket} setContact={props.setContact}/>} />
             <Route exact path="/drink" render={()=><Drink addDrink={props.addDrink}/>} />
-            <Route exact path="/worker" component={Worker} />
+            <Route exact path="/worker" render={() => <Worker logged={props.logged} />} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/createpizza" render={() => <OwnPizza addPizza={props.addPizza}/>} />
-            <Route exact path="/worker/items" component={Items} />
-            <Route exact path="/worker/orders" component={Orders} />
+            <Route exact path="/worker/items" render={() => <Items logged={props.logged} />} />
+            <Route exact path="/worker/orders" render={() => <Orders logged={props.logged} />} />
+            <Route exact path="/worker/login" render={() => <Login login={props.login} logged={props.logged}/>} />
             <Route component={NotFound} />
         </Switch>
     );

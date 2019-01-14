@@ -1,0 +1,13 @@
+.Login{
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    & .centered {
+        display: flex;
+        justify-content: center;
+    }
+    & button{
+        margin-top: 1em !important;
+
+    }
+}

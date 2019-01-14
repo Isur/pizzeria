@@ -55,8 +55,9 @@ export default class Basket extends Component {
         </Header>
         <Header>
 
-        <Input label="Mail" type="mail"
-        onChange={(e) => this.props.setContact(e.target.value) }/>
+        <Input label="Telefon"
+               type="tel"
+               onChange={(e) => this.props.setContact(e.target.value) }/>
         </Header>
         <Header >
 
