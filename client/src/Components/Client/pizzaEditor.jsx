@@ -6,11 +6,11 @@ import MyLoader from '../Config/MyLoader';
 const IngredientPanel = (props) => {
     return(
         <Segment>
+            <Button icon="trash" onClick={(e) =>{ e.preventDefault(); props.remove(props.id);}} />
             {props.name}
             {/* <Button icon="plus" onClick={(e) =>{ e.preventDefault(); props.plus(props.id);}} /> */}
             {/* {props.quantity} */}
             {/* <Button icon="minus" onClick={(e) =>{ e.preventDefault(); props.minus(props.id);}} /> */}
-            <Button icon="trash" onClick={(e) =>{ e.preventDefault(); props.remove(props.id);}} />
         </Segment>
     )
 }
