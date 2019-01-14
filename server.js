@@ -16,13 +16,6 @@ mongoose.connect(db, { useNewUrlParser: true })
     .then(() => console.log("Database connected", db))
     .catch((err) => console.log(err));
 
-
-if (process.env.NODE_ENV === "production"){
-    app.use(express.static("client/build"));
-    app.get("*", (req,res)=>{
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
-}
 // Routes
 const ingredient = require("./routes/api/ingredient");
 app.use("/api/ingredient", ingredient);
@@ -35,6 +28,13 @@ app.use("/api/pizza", pizza);
 const order = require("./routes/api/order");
 app.use("/api/order", order);
 
+
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static("client/build"));
+    app.get("*", (req,res)=>{
+        res.sendFile(__dirname + "/client" + "/build" + "/index.html");
+    });
+}
 
 
 const port = process.env.PORT || 3333;
